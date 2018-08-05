@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <link href="css/styles.css" rel="stylesheet"/>
+      <link href="css/sites.css" rel="stylesheet"/>
+
   </head>
   <body>
-      <button>add this site</button>
+    <div class="content">
+<div class="input-group">
+<input type="url" placeholder="arsina.net" class="form-control"/>
+      <button class="btn btn-success">add this site</button>
+</div>
+  <ul class="list site-list">
+<li>
+  <span class="btn-delete">X</span>
+  <a href="#" title="site name" target="_blank">
+  <img src="https://www.arsina.net/favicon.ico" class="favicon" alt="favicon site" /> <span class="site-name">arsina.net</span>
+  </a>
+  </li>
+      </ul>
     <div id="mysites"></div>
+      </div>
+    
     <script src="sites.js"></script>
   </body>
 </html>
