@@ -1,39 +1,42 @@
+'use strict';
+
 let sitesDiv = document.getElementById('site-ranks');
-let addSiteBtn = document.getElementById('addsite');
 
 var _searchCache = [];
-
-addSiteBtn.onclick = function () {
+$('#addsite').click(function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         let url = new URL(tabs[0].url);
         addSite(url);
     });
+})
+$('#refreshbtn').click(refresh);
+
+function refresh() {
+    chrome.storage.sync.get('mysites', function (data) {
+        if (data.mysites && data.mysites.length > 0) {
+            isGooglePage().then(val => {
+                if (val) {
+                    $('#addsite').hide();
+
+                    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                        let googleurl = new URL(tabs[0].url);
+                        let keyword = getKeywordFromUrl(googleurl);
+                        if (_searchCache[keyword] !== undefined)
+                            showSites(keyword, tabs[0].id);
+                        else
+                            getRank(googleurl, function () {
+                                showSites(keyword, tabs[0].id);
+                            });
+                    });
+                } else {
+                    $('#addsite').show();
+                }
+            })
+        }
+    });
 }
 
-chrome.storage.sync.get('mysites', function (data) {
-    if (data.mysites && data.mysites.length > 0) {
-        if (isGooglePage()) {
-            addSiteBtn.style.display = 'none';
-        } else {
-            addSiteBtn.style.display = 'block';
-        }
-
-        if (isGooglePage()) {
-            chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-                let googleurl = new URL(tabs[0].url);
-                let keyword = getKeywordFromUrl(googleurl);
-                if (_searchCache[keyword] !== undefined)
-                    showSites(keyword);
-                else
-                    getRank(googleurl, function () {
-                        showSites(keyword);
-                    });
-            });
-        }
-    }
-});
-
-function showSites(query) {
+function showSites(query, tabId) {
     if (query && query.length > 0) {
         if (_searchCache[query] != undefined) {
             chrome.storage.sync.get('mysites', function (data) {
@@ -41,18 +44,18 @@ function showSites(query) {
                     let rankCounter = 0;
                     for (var i = 0; i < data.mysites.length; i++) {
                         let sitename = data.mysites[i];
-                        var element = document.createElement('p');
-                        element.innerText = sitename + " delete";
+                        var element = $('<p></p>');
+                        element.append('<span>' + sitename + '</span>');
                         var rankinfo = _searchCache[query].find(function (c) { return c.domain.toLowerCase() == sitename.toLowerCase(); })
                         if (rankinfo) {
-                            element.innerText = element.innerText + 'rank: ' + rankinfo.rank;
+                            element.append('<span>rank: ' + rankinfo.rank + '</span>');
                             rankCounter++;
                         }
-                        sitesDiv.appendChild(element);
+                        $('#site-ranks').append(element);
 
                     }
                     if (rankCounter > 0) {
-                        chrome.browserAction.setBadgeText({ text: rankCounter.toString() });
+                        chrome.browserAction.setBadgeText({ text: rankCounter.toString(), tabId: tabId });
                     }
                 }
             });
@@ -108,10 +111,6 @@ function getKeywordFromUrl(url) {
     }
 }
 
-function isGooglePage() {
-    return true;
-}
-
 function httpGetAsync(theUrl, callback) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
@@ -131,6 +130,8 @@ function getDomainNameFromUrl(url) {
         url = url.split(' ')[0];
         if (!(url.startsWith('http://') || url.startsWith('https://')))
             u = new URL('http://' + url);
+        else
+            u = new URL(url);
     }
     var domain = u.hostname;
     if (domain.indexOf('www.') === 0)
