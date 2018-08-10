@@ -1,21 +1,37 @@
 'use strict';
 
+var storage = new Storage();
 chrome.storage.sync.get('mysites', function (data) {
     if (data.mysites && data.mysites.length > 0) {
 
         for (var i = 0; i < data.mysites.length; i++) {
-            let sitename = data.mysites[i];
-            $('#mysites').append('<li><span class="btn-delete">X</span><a href="#" title="' + 
-            sitename + 
-            '" target="_blank"><img src="http://' +
-            sitename + 
-            '/favicon.ico" class="favicon" alt="' + 
-            sitename + 
-            '" /><span class="site-name">' + 
-            sitename + 
-            '</span></a></li>');
+            let urlModel = data.mysites[i];
+            $('#mysites').append(
+                createSiteElement(urlModel, true)
+            );
         }
     }
 });
+
+$('#btnAddSite').click(function () {
+    var sitename = $('#txtSite').val();
+    if (sitename && sitename.length > 0) {
+        var urlModel = createUrlObject(sitename);
+        storage.addSite(urlModel).then(function (res) {
+            if (res) {
+                $('#mysites').append(createSiteElement(urlModel));
+                $('#txtSite').val('');
+            }
+        })
+    }
+});
+
+$('#mysites').on('click', '.btn-delete', function () {
+    var hostname = $(this).data('hostname');
+    if (confirm('Remove ' + hostname + ' from this list?')) {
+        storage.removeSite(hostname);
+        $(this).parents('li').remove();
+    }
+})
 
 

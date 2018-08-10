@@ -1,12 +1,16 @@
 'use strict';
 
-let sitesDiv = document.getElementById('site-ranks');
+var _storage = new Storage();
 
 var _searchCache = [];
 $('#addsite').click(function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        let url = new URL(tabs[0].url);
-        addSite(url);
+        _storage.addSite(tabs[0].url).then((res, item) => {
+            if (res && res.added)
+                $('#site-ranks').append(createSiteElement(res.item));
+
+
+        });
     });
 })
 $('#refreshbtn').click(refresh);
@@ -30,6 +34,12 @@ function refresh() {
                     });
                 } else {
                     $('#addsite').show();
+                    for (var i = 0; i < data.mysites.length; i++) {
+                        let sitename = data.mysites[i];
+
+                        $('#site-ranks').append(createSiteElement(sitename));
+
+                    }
                 }
             })
         }
@@ -44,14 +54,14 @@ function showSites(query, tabId) {
                     let rankCounter = 0;
                     for (var i = 0; i < data.mysites.length; i++) {
                         let sitename = data.mysites[i];
-                        var element = $('<p></p>');
-                        element.append('<span>' + sitename + '</span>');
-                        var rankinfo = _searchCache[query].find(function (c) { return c.domain.toLowerCase() == sitename.toLowerCase(); })
+
+                        var rankinfo = _searchCache[query].find(function (c) { return c.domain.toLowerCase() == sitename.hostname.toLowerCase(); })
+                        var rank = 0;
                         if (rankinfo) {
-                            element.append('<span>rank: ' + rankinfo.rank + '</span>');
                             rankCounter++;
+                            rank = rankinfo.rank;
                         }
-                        $('#site-ranks').append(element);
+                        $('#site-ranks').append(createSiteElement(sitename, false, rank));
 
                     }
                     if (rankCounter > 0) {
@@ -61,25 +71,6 @@ function showSites(query, tabId) {
             });
         }
     }
-}
-
-function addSite(url) {
-    chrome.storage.sync.get('mysites', function (data) {
-        let domainname = getDomainNameFromUrl(url);
-        if (!data.mysites) {
-            data.mysites = [domainname];
-        } else {
-            if (data.mysites.indexOf(domainname) === -1)
-                data.mysites.push(domainname);
-        }
-        chrome.storage.sync.set({ 'mysites': data.mysites });
-    })
-}
-
-function removeSite(url) {
-    let domainname = getDomainNameFromUrl(url);
-    if (data.mysites.indexOf(domainname) !== -1)
-        data.mysites.pop(domainname);
 }
 
 function getRank(googleurl, callback) {

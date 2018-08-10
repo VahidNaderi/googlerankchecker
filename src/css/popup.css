@@ -3,3 +3,42 @@
       width: 260px;
    
         }
+
+        
+    .site-list{
+      list-style: none;
+      padding-left: 0;
+  }
+  .site-list li{
+margin-bottom: 5px;
+font-size: 1.2em;
+  }
+  .site-list li:hover .btn-delete{
+opacity: 1;
+  }    
+  .site-list li >a{
+color: #777;
+text-decoration: none;
+
+  }    
+  .site-list li .favicon{
+      width: 16px;
+      height: 16px;
+      margin-right: .5rem;
+      vertical-align: middle;
+  }    
+  .site-url{
+      font-weight: 100;
+  }
+  .btn-delete{
+      opacity: 0;
+      padding: 0 5px;
+      color: #000;
+      font-family: arial;
+      font-weight: bold;
+      cursor: pointer;
+      vertical-align: middle;
+  }
+  .btn-delete:hover{
+color:#f33;
+  }
