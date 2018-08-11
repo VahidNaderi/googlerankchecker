@@ -7,9 +7,22 @@
 </head>
 
 <body>
+
+  <div class="header">
+    <div class="logo">
+<img src="/images/pagerank32.png" class="image"/> <span class="name">Google Rank Checker</span>
+    </div>
+  </div>
+  <div class="actions">
   <button id="refreshbtn" class="btn">Refresh</button>
-  <button id="addsite" class="btn btn-brand">+ Add site</button>
-  <ul class="list site-list" id="site-ranks"></div>
+  <button id="addsite" class="btn">+ Add this site</button>    
+  <button class="btn">My sites →</button>    
+    </div>
+  <div id="site-ranks"></div>
+  <ul class="url-list rank-list" id="site-ranks">
+    <li><img src="#" class="favicon"/><span class="site-name">bing.com</span> <span class="
+    rank-badge">99</span></li>
+  </ul>
   <script src="assets/jquery-3.3.1.min.js"></script>
   <script src="common.js"></script>
   <script src="storage.js"></script>
