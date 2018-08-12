@@ -1,5 +1,6 @@
 body {
     color: #444;
+    font-family: 'roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: small;
     background: #eee;
 }
@@ -116,7 +117,7 @@ body {
     display: inline-block;
     font-size: .9em;
     font-family: verdana;
-    padding: 1px 3px;
+    padding: 0 4px;
     text-align: center;
     font-weight: bold;
     vertical-align: middle;

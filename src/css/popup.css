@@ -65,11 +65,11 @@
       height: 30px;
   }
 
-  .header .logo .name {}
 
   .actions {
       padding-bottom: .5rem;
       border-bottom: 1px solid #ddd;
+      overflow: hidden;
   }
 
   .actions .btn:last-child {
@@ -77,6 +77,6 @@
   }
 
 
-  .ranks-list .rank-badge {
+  .rank-list .rank-badge {
       float: right;
   }

@@ -13,18 +13,24 @@ chrome.storage.sync.get('mysites', function (data) {
     }
 });
 
-$('#btnAddSite').click(function () {
+$('#txtSite').keypress(function (event) {
+    if (event.which == 13) addSite();
+})
+
+$('#btnAddSite').click(addSite);
+
+function addSite() {
     var sitename = $('#txtSite').val();
     if (sitename && sitename.length > 0) {
         var urlModel = createUrlObject(sitename);
         storage.addSite(urlModel).then(function (res) {
             if (res) {
-                $('#mysites').append(createSiteElement(urlModel));
+                $('#mysites').append(createSiteElement(urlModel, true));
                 $('#txtSite').val('');
             }
         })
     }
-});
+}
 
 $('#mysites').on('click', '.btn-delete', function () {
     var hostname = $(this).data('hostname');

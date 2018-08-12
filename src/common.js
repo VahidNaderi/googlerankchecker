@@ -38,7 +38,7 @@ function createSiteElement(urlModel, addDeleteButton, rank) {
         urlModel.hostname +
         '</span></li>');
     if (addDeleteButton) {
-        $element.wrapinner('<a href="" target="_blank"></a>');
+        $element.wrapInner('<a href="" target="_blank"></a>');
         $element.prepend('<span class="btn-delete" data-hostname="' +
             urlModel.hostname +
             '">X</span>');

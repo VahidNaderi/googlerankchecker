@@ -14,7 +14,7 @@ $('#addsite').click(function () {
     });
 })
 $('#refreshbtn').click(refresh);
-
+refresh();
 function refresh() {
     chrome.storage.sync.get('mysites', function (data) {
         if (data.mysites && data.mysites.length > 0) {
@@ -45,7 +45,9 @@ function refresh() {
         }
     });
 }
-
+$('#btnOptions').click(function(){
+    chrome.runtime.openOptionsPage();
+})
 function showSites(query, tabId) {
     if (query && query.length > 0) {
         if (_searchCache[query] != undefined) {
