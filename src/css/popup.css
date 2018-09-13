@@ -1,36 +1,42 @@
-  body{
+  body {
       min-width: 160px;
-      width: 260px;
-   
-        }
+      width: 320px;
+      min-height: 200px;
+      max-height: 450px;
+      margin: 0 1rem 1rem;
+  }
 
-        
-    .site-list{
+  /*.site-list {
       list-style: none;
       padding-left: 0;
   }
-  .site-list li{
-margin-bottom: 5px;
-font-size: 1.2em;
-  }
-  .site-list li:hover .btn-delete{
-opacity: 1;
-  }    
-  .site-list li >a{
-color: #777;
-text-decoration: none;
 
-  }    
-  .site-list li .favicon{
+  .site-list li {
+      margin-bottom: 5px;
+      font-size: 1.2em;
+  }
+
+  .site-list li:hover .btn-delete {
+      opacity: 1;
+  }
+
+  .site-list li>a {
+      color: #777;
+      text-decoration: none;
+  }
+
+  .site-list li .favicon {
       width: 16px;
       height: 16px;
       margin-right: .5rem;
       vertical-align: middle;
-  }    
-  .site-url{
+  }*/
+
+  .site-url {
       font-weight: 100;
   }
-  .btn-delete{
+
+  /*.btn-delete {
       opacity: 0;
       padding: 0 5px;
       color: #000;
@@ -39,6 +45,38 @@ text-decoration: none;
       cursor: pointer;
       vertical-align: middle;
   }
-  .btn-delete:hover{
-color:#f33;
+
+  .btn-delete:hover {
+      color: #f33;
+  }*/
+
+  .header {
+      padding: .5rem 1rem;
+      background: linear-gradient(90deg, #c14e48 40%, #e1645e) #c14e48;
+      color: #fff;
+      margin: 0 -1rem 1rem;
+  }
+
+  .header .logo {
+      font-size: 1em;
+  }
+
+  .header .logo .image {
+      height: 30px;
+  }
+
+
+  .actions {
+      padding-bottom: .5rem;
+      border-bottom: 1px solid #ddd;
+      overflow: hidden;
+  }
+
+  .actions .btn:last-child {
+      float: right;
+  }
+
+
+  .rank-list .rank-badge {
+      float: right;
   }

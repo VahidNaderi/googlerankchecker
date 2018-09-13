@@ -32,22 +32,19 @@ function createUrlObject(url) {
 }
 
 function createSiteElement(urlModel, addDeleteButton, rank) {
-    var $element = $('<li><a href="#" title="' +
-        urlModel.hostname +
-        '" target="_blank"><img src="' +
+    var $element = $('<li><img src="' +
         urlModel.origin +
-        '/favicon.ico" class="favicon" alt="' +
+        '/favicon.ico" class="favicon"/><span class="site-name">' +
         urlModel.hostname +
-        '" /><span class="site-name">' +
-        urlModel.hostname +
-        '</span></a></li>');
+        '</span></li>');
     if (addDeleteButton) {
+        $element.wrapInner('<a href="" target="_blank"></a>');
         $element.prepend('<span class="btn-delete" data-hostname="' +
             urlModel.hostname +
             '">X</span>');
     }
     if (rank) {
-        $element.append('<span>rank: ' + rank + '</span>');
+        $element.append('<span class="rank-badge">' + rank + '</span>');
     }
 
     return $element;
