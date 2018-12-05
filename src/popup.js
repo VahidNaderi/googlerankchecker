@@ -1,20 +1,25 @@
 'use strict';
 
 var _storage = new Storage();
-
 var _searchCache = [];
+
 $('#addsite').click(function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         _storage.addSite(tabs[0].url).then((res, item) => {
             if (res && res.added)
                 $('#site-ranks').append(createSiteElement(res.item));
-
-
         });
     });
 })
+
 $('#refreshbtn').click(refresh);
+
+$('#btnOptions').click(function () {
+    chrome.runtime.openOptionsPage();
+})
+
 refresh();
+
 function refresh() {
     chrome.storage.sync.get('mysites', function (data) {
         if (data.mysites && data.mysites.length > 0) {
@@ -38,16 +43,13 @@ function refresh() {
                         let sitename = data.mysites[i];
 
                         $('#site-ranks').append(createSiteElement(sitename));
-
                     }
                 }
             })
         }
     });
 }
-$('#btnOptions').click(function(){
-    chrome.runtime.openOptionsPage();
-})
+
 function showSites(query, tabId) {
     if (query && query.length > 0) {
         if (_searchCache[query] != undefined) {

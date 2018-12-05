@@ -1,17 +1,49 @@
 'use strict'
 function isGooglePage() {
     return new Promise(function (resolve, reject) {
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            let url = new URL(tabs[0].url);
+        getCurrentUrl().then(function (url) {
             if (url.href.toLowerCase().indexOf('google.com/search') > -1)
                 resolve(true);
             else
                 resolve(false);
+        }).catch(reject);
+    })
+}
 
+function getCurrentTab() {
+    return new Promise(function (resolve, reject) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            try {
+                if (!tabs[0]) {
+                    reject('No current tab!!!');
+                    return;
+                }
+
+                resolve(tabs[0]);
+            } catch (e) {
+                reject(e);
+            }
         })
     })
 }
 
+function getCurrentUrl() {
+    return new Promise(function (resolve, reject) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            try {
+                if (!tabs[0].url) {
+                    reject('This tab does not have a url.');
+                    return;
+                }
+
+                let url = new URL(tabs[0].url);
+                resolve(url);
+            } catch (e) {
+                reject(e);
+            }
+        })
+    })
+}
 function createUrlObject(url) {
     let u = null;
     try {

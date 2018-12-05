@@ -2,9 +2,9 @@
     "name": "Google rank checker",
     "version": "0.3",
     "description": "See your sites rank in a click",
-    "permissions": ["activeTab", "declarativeContent", "storage"],
+    "permissions": ["tabs","activeTab", "declarativeContent", "storage", "https://www.google.com/"],
     "background": {
-        "scripts": ["background.js"],
+        "scripts": ["storage.js", "common.js", "search.js", "background.js"],
         "persistent": false
     },
     "browser_action": {
