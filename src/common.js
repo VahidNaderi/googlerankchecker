@@ -63,6 +63,24 @@ function createUrlObject(url) {
     return u;
 }
 
+function getDomainNameFromUrl(url) {
+    let u = null;
+    try {
+        u = new URL(url);
+    }
+    catch (error) {
+        url = url.split(' ')[0];
+        if (!(url.startsWith('http://') || url.startsWith('https://')))
+            u = new URL('http://' + url);
+        else
+            u = new URL(url);
+    }
+    var domain = u.hostname;
+    if (domain.indexOf('www.') === 0)
+        domain = domain.replace('www.', '');
+
+    return domain;
+}
 function createSiteElement(urlModel, addDeleteButton, rank) {
     var $element = $('<li><img src="' +
         urlModel.origin +

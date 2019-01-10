@@ -39,5 +39,3 @@ $('#mysites').on('click', '.btn-delete', function () {
         $(this).parents('li').remove();
     }
 })
-
-

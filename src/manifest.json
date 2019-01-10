@@ -1,6 +1,6 @@
 {
     "name": "Google rank checker",
-    "version": "0.3",
+    "version": "0.3.1",
     "description": "See your sites rank in a click",
     "permissions": ["tabs","activeTab", "declarativeContent", "storage", "https://www.google.com/"],
     "background": {

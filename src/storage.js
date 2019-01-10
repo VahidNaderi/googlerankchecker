@@ -4,12 +4,13 @@ Storage.prototype.addSite = function (urlString) {
     return new Promise(function (resolve, reject) {
         chrome.storage.sync.get('mysites', function (data) {
             let url = createUrlObject(urlString);
+            let domain = getDomainNameFromUrl(urlString);
             if (!data.mysites) {
                 data.mysites = [];
             }
-            var foundUrl = data.mysites.find(u => u.hostname == url.hostname);
+            var foundUrl = data.mysites.find(u => u.hostname == domain);
             if (!foundUrl) {
-                var item = { hostname: url.hostname, origin: url.origin };
+                var item = { hostname: domain, origin: url.origin };
                 data.mysites.push(item);
                 resolve({ added: true, item: item });
             }
@@ -18,10 +19,10 @@ Storage.prototype.addSite = function (urlString) {
     })
 }
 
-Storage.prototype.removeSite = function (urlString) {
+Storage.prototype.removeSite = function (name) {
     chrome.storage.sync.get('mysites', function (data) {
-        let url = createUrlObject(urlString);
-        var foundUrl = data.mysites.find(u => u.hostname == url.hostname);
+        //let domain = getDomainNameFromUrl(urlString);
+        var foundUrl = data.mysites.find(u => u.hostname == name);
         if (foundUrl) {
             var index = data.mysites.indexOf(foundUrl);
             data.mysites.splice(index, 1);
