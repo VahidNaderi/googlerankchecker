@@ -36,12 +36,12 @@ function renewRanks(googleurl) {
 }
 
 function parseGoogleResultAndUpdate(googleResultPage, keyword) {
-    var el = document.createElement('html');
-    el.innerHTML = googleResultPage;
-    var links = el.getElementsByTagName('cite');
-    for (var i = 0; i < links.length; i++) {
-        var el = links[i];
-        var u = getDomainNameFromUrl(el.innerText);
+    let page = document.createElement('html');
+    page.innerHTML = googleResultPage;
+    let links = page.getElementsByTagName('cite');
+    for (let i = 0; i < links.length; i++) {
+        let el = links[i];
+        let u = getDomainNameFromUrl(el.innerText);
         _searchCache[keyword].push({ domain: u, rank: i + 1 });
     }
 }
