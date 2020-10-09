@@ -6,9 +6,10 @@ const path = require('path');
 const itemId = "EXTENSION_ID";
 var buildLocation = path.join(__dirname, "releases");
 let appFolder = path.join(__dirname, "src");
+let manifestFilePath = path.join(appFolder, "manifest.json");
 
 // read manifest file
-var manifest = jsonfile.readFileSync(path.join(appFolder, "manifest.json"));
+var manifest = jsonfile.readFileSync(manifestFilePath);
 function getNewVersion() {
         let splitedVer =manifest.version.split('.');
        var ver = parseInt(splitedVer[2]);
@@ -19,7 +20,7 @@ var version = getNewVersion();
 // replace version
 manifest.version = version;
 // save manifest file
-jsonfile.writeFileSync(path.join(buildLocation, "manifest.json"), manifest);
+jsonfile.writeFileSync(manifestFilePath, manifest);
 
 // create zip
 zipper.sync.zip(appFolder).compress().save(path.join(buildLocation, "googlerankchecker.zip"));
