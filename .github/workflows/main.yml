@@ -24,7 +24,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run deploy to package the extension
-        run: npm run deploy
+        run: |
+          npm install
+          npm run deploy
 
       - name: Chrome Extension upload & publish
         with: # Set the secret as an input
