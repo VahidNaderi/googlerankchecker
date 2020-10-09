@@ -33,5 +33,7 @@ jobs:
           echo test, and deploy your project.
           
       - name: Chrome Extension upload & publish
+        with: # Set the secret as an input
+          client-id: ${{ secrets.CHROME_STORE_CLIENT_ID }}
         uses: Passiverecords/chrome-extension-upload-action@1.4.1
 
