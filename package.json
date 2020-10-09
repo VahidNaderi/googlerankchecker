@@ -1,0 +1,32 @@
+{
+  "name": "googlerankchecker",
+  "version": "0.5.0",
+  "description": "A chrome extension to simplify finding ranks on google search results",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "fs-extra": "^9.0.1",
+    "jsonfile": "^6.0.1",
+    "zip-local": "^0.3.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "node deploy.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VahidNaderi/googlerankchecker.git"
+  },
+  "keywords": [
+    "google",
+    "ranks",
+    "seo",
+    "tool"
+  ],
+  "author": "arsina inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VahidNaderi/googlerankchecker/issues"
+  },
+  "homepage": "https://github.com/VahidNaderi/googlerankchecker#readme"
+}
