@@ -34,7 +34,7 @@ jobs:
           
       - name: Chrome Extension upload & publish
         with: # Set the secret as an input
-          refresh-token: $ {{ secrets.CHROME_STORE_REFRESH_TOKEN }}
+          refresh-token: ${{ secrets.CHROME_STORE_REFRESH_TOKEN }}
           client-id: ${{ secrets.CHROME_STORE_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_STORE_CLIENT_SECRET }}
           file-name: googlerankchecker.zip
