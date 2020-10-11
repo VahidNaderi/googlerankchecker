@@ -3,7 +3,6 @@ const zipper = require("zip-local");
 const jsonfile = require('jsonfile');
 const path = require('path');
 
-const itemId = "EXTENSION_ID";
 var buildLocation = path.join(__dirname, "releases");
 let appFolder = path.join(__dirname, "src");
 let manifestFilePath = path.join(appFolder, "manifest.json");
@@ -32,5 +31,4 @@ function preparePackage() {
 
         // create zip
         zipper.sync.zip(appFolder).compress().save(path.join(buildLocation, "googlerankchecker.zip"));
-        //const fileBin = fs.readFileSync(path.join(buildLocation, "googlerankchecker.zip"));
 }
