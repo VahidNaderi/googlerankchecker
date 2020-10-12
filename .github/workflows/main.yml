@@ -19,7 +19,7 @@ jobs:
       # Checks-out the repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Run deploy to package the extension
+      - name: Run deploy script to build and package the extension
         run: |
           npm install
           npm run deploy
