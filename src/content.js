@@ -15,17 +15,25 @@ window.onload = function () {
 
                     if (link.innerText.indexOf(site.hostname) > -1) {
                         const element = link.closest('.g');
-                        element.classList.add('serptrends-item');
+                        highlightLink(element);
                         const pagePlacement = this.getPlacement(index + 1);
                         element.setAttribute('data-rank', pagePlacement);
                         console.log('placement is :', pagePlacement);
-                        sitesWithRanksCount ++;
+                        sitesWithRanksCount++;
                     }
                 }
             }
             chrome.runtime.sendMessage({ sitesWithRanksCount }, function (response) {
                 console.log(response);
             });
+        }
+    })
+}
+
+function highlightLink(element) {
+    chrome.storage.sync.get('highlighting-enabled', data => {
+        if (data['highlighting-enabled'] === true || data['highlighting-enabled'] === undefined) {
+            element.classList.add('serptrends-item');
         }
     })
 }

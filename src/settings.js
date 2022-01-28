@@ -13,6 +13,14 @@ chrome.storage.sync.get('mysites', function (data) {
     }
 });
 
+chrome.storage.sync.get('highlighting-enabled', data => {
+    $('#enable-highlighting').prop('checked', data['highlighting-enabled']);
+})
+
+$('#enable-highlighting').change(() => {
+    chrome.storage.sync.set({ 'highlighting-enabled': $('#enable-highlighting').prop('checked') });
+})
+
 $('#txtSite').keypress(function (event) {
     if (event.which == 13) addSite();
 })
