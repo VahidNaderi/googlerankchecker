@@ -23,14 +23,14 @@ jobs:
         run: |
           npm install
           npm run deploy
-
-      - name: Chrome Extension upload & publish
+          
+      - name: Upload & release
+        uses: mnao305/chrome-extension-upload@2.2.0
         with:
-          refresh-token: ${{ secrets.CHROME_STORE_REFRESH_TOKEN }}
+          file-path: releases/googlerankchecker.zip
+          extension-id: ehgbmeaekkaeajmapeefcolejlaamdip
           client-id: ${{ secrets.CHROME_STORE_CLIENT_ID }}
-          client-secret: ${{ secrets.CHROME_STORE_CLIENT_SECRET }}
-          file-name: releases/googlerankchecker.zip
-          app-id: ehgbmeaekkaeajmapeefcolejlaamdip
+          refresh-token: ${{ secrets.CHROME_STORE_REFRESH_TOKEN }}
           publish: false
-        uses: Passiverecords/chrome-extension-upload-action@1.4.1
+
 
