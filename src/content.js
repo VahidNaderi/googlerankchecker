@@ -8,7 +8,7 @@ window.onload = function () {
 
         if (sites) {
             const linksInPage = document.getElementsByTagName('cite');
-
+            let sitesWithRanksCount = 0;
             for (const site of sites) {
                 for (let index = 0; index < linksInPage.length; index++) {
                     const link = linksInPage[index];
@@ -19,19 +19,20 @@ window.onload = function () {
                         const pagePlacement = this.getPlacement(index + 1);
                         element.setAttribute('data-rank', pagePlacement);
                         console.log('placement is :', pagePlacement);
+                        sitesWithRanksCount ++;
                     }
                 }
             }
-
+            chrome.runtime.sendMessage({ sitesWithRanksCount }, function (response) {
+                console.log(response);
+            });
         }
-    }
-
-    )
+    })
 }
 
 function getPlacement(itemIndexInPage) {
     const loc = new URLSearchParams(document.location.search);
     let skip = parseInt(loc.get('start'));
-    skip = skip == NaN ? 0 : skip;
+    skip = isNaN(skip) ? 0 : skip;
     return skip + itemIndexInPage;
 }

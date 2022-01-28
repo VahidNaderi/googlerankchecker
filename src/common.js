@@ -1,49 +1,28 @@
 'use strict'
-function isGooglePage() {
-    return new Promise(function (resolve, reject) {
-        getCurrentUrl().then(function (url) {
-            if (url.href.toLowerCase().indexOf('google.com/search') > -1)
-                resolve(true);
-            else
-                resolve(false);
-        }).catch(reject);
-    })
+
+async function isGooglePage() {
+
+    let url = await getCurrentUrl();
+    console.log('url is ', url);
+    if (url.href.toLowerCase().indexOf('google.com/search') > -1)
+        return true;
+    else
+        return false;
 }
 
-function getCurrentTab() {
-    return new Promise(function (resolve, reject) {
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            try {
-                if (!tabs[0]) {
-                    reject('No current tab!!!');
-                    return;
-                }
-
-                resolve(tabs[0]);
-            } catch (e) {
-                reject(e);
-            }
-        })
-    })
+async function getCurrentTab() {
+    let queryOptions = { active: true, currentWindow: true };
+    let tabs = await chrome.tabs.query(queryOptions);
+    return tabs[0];
 }
 
-function getCurrentUrl() {
-    return new Promise(function (resolve, reject) {
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            try {
-                if (!tabs[0].url) {
-                    reject('This tab does not have a url.');
-                    return;
-                }
-
-                let url = new URL(tabs[0].url);
-                resolve(url);
-            } catch (e) {
-                reject(e);
-            }
-        })
-    })
+async function getCurrentUrl() {
+    let queryOptions = { active: true, currentWindow: true };
+    let tabs = await chrome.tabs.query(queryOptions);
+    console.log('The curent tab is:', tabs);
+    return new URL(tabs[0].url);
 }
+
 function createUrlObject(url) {
     let u = null;
     try {
@@ -81,6 +60,7 @@ function getDomainNameFromUrl(url) {
 
     return domain;
 }
+
 function createSiteElement(urlModel, addDeleteButton, rank) {
     var $element = $('<li><img src="' +
         urlModel.origin +

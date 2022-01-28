@@ -26,8 +26,8 @@ function renewRanks(googleurl) {
         googleurl.searchParams.set('num', 100);
         if (_searchCache[keyword] == undefined) {
             _searchCache[keyword] = [];
-            httpGetAsync2(googleurl.href).then(res => {
-                parseGoogleResultAndUpdate(res, keyword);
+            fetch(googleurl.href).then(res => {
+                parseGoogleResultAndUpdate(res.body, keyword);
                 resolve(_searchCache[keyword]);
             })
         }
