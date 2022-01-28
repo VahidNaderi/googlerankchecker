@@ -1,9 +1,9 @@
-#search .bkWMgd .serptrends-item::before {
+#search .serptrends-item::before {
     content: attr(data-rank);
     font-size: small;
 }
 
-#search .bkWMgd .serptrends-item {
+#search .serptrends-item {
     border-radius: 8px;
     box-shadow: 0px 1px 4px #BDC1C6;
     background-color: cornsilk;

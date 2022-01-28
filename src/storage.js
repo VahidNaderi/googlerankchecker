@@ -37,3 +37,7 @@ Storage.prototype.getSites = function () {
         chrome.storage.sync.get('mysites', data => resolve(data.mysites));
     })
 }
+
+Storage.prototype.setSetting = function(key, value){
+    
+}

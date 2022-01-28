@@ -69,7 +69,7 @@ function showSites(query, tabId) {
 
                     }
                     if (rankCounter > 0) {
-                        chrome.browserAction.setBadgeText({ text: rankCounter.toString(), tabId: tabId });
+                        chrome.action.setBadgeText({ text: rankCounter.toString(), tabId: tabId });
                     }
                 }
             });
