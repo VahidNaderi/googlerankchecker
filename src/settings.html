@@ -10,17 +10,26 @@
   <div class="content">
     <div class="input-group">
       <img src="/images/pagerank128.png" class="logo" />
-      <input type="url" placeholder="arsina.net" class="input input-lg" id="txtSite" />
-      <button class="btn btn-lg" id="btnAddSite">add this site</button>
+      <input type="url" placeholder="example: arsina.net" class="input input-lg" id="txtSite" />
+      <button class="btn btn-lg" id="btnAddSite">Add</button>
     </div>
     <div>
-      <span>Settings</span>
-      <br/>
-      <label for="enableHighlighting">Enable Highlighting</label>
-      <input type="checkbox" id="enable-highlighting">
+      <h2 class="section-title">Settings</h2>
+      <label for="enable-highlighting" class="setting-row toggle">
+    <span>
+      <span class="switch-label">Enable highlighting</span>
+      <span class="label-secondary">Highlights the interested result item in the google search results</span>
+    </span>
+          <span class="switch">
+            <input type="checkbox" id="enable-highlighting" class="switch-input" />
+            <span class="slider"></span>
+          </span>
+    
+      </label>
     </div>
+  <hr />
     <div>
-      <span>Sites</span>
+      <h2 class="section-title">Sites</h2>
       <ul class="url-list site-list" id="mysites">
       </ul>
     </div>

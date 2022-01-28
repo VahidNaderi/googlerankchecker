@@ -5,9 +5,13 @@ body {
     background: #eee;
 }
 
+hr {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+}
+
 .btn {
-    display: inline-block;
-    padding: 4px 8px;
     font-family: verdana;
     font-weight: bold;
     color: #444;
@@ -30,8 +34,6 @@ body {
     padding: 6px 12px;
 }
 
-.btn:hover {}
-
 .btn:focus {
     outline: none;
 }
@@ -39,23 +41,6 @@ body {
 .btn:active {
     text-shadow: 0 -1px 0 #000;
 }
-
-/*.btn-brand{
-      background-color: #c14e48;
-      color: #fff;
-    }
-    .btn-success{
-        background-color: #5c5;
-        color:#fff;
-    }
-    .btn-danger{
-         background-color: #f33;
-        color:#fff;
-    }
-      .btn-info{
-         background-color: #55f;
-        color:#fff;
-    }*/
 
 .input {
     padding: 4px 8px;
@@ -77,6 +62,12 @@ body {
 
 .input.input-lg {
     padding: 6px 12px;
+}
+
+.section-title {
+    font-size: medium;
+    margin: 0 0 .5rem;
+
 }
 
 .url-list {
