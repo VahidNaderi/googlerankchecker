@@ -7,7 +7,7 @@
   "devDependencies": {
     "fs-extra": "^9.0.1",
     "jsonfile": "^6.0.1",
-    "zip-local": "^0.3.4"
+    "zip-local": "^0.3.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
