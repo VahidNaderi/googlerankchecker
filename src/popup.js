@@ -88,7 +88,7 @@ function getRank(googleurl, callback) {
             var links = el.getElementsByTagName('cite');
             for (var i = 0; i < links.length; i++) {
                 var el = links[i];
-                var u = getDomainNameFromUrl(el.innerText);
+                var u = getDomainNameFromUrl(el.childNodes[0].textContent);
                 _searchCache[keyword].push({ domain: u, rank: i + 1 });
             }
 

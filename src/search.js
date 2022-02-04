@@ -41,7 +41,7 @@ function parseGoogleResultAndUpdate(googleResultPage, keyword) {
     let links = page.getElementsByTagName('cite');
     for (let i = 0; i < links.length; i++) {
         let el = links[i];
-        let u = getDomainNameFromUrl(el.innerText);
+        let u = getDomainNameFromUrl(el.childNodes[0].textContent);
         _searchCache[keyword].push({ domain: u, rank: i + 1 });
     }
 }
