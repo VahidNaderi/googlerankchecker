@@ -1,9 +1,8 @@
-'use strict';
+import "./content.scss";
+import { StorageHelper } from "../helpers/storage-helper";
 
-window.onload = function () {
-    const storage = new Storage();
-
-    storage.getSites().then(sites => {
+window.onload = () => {
+    StorageHelper.getSites().then((sites: any) => {
         console.log(sites);
 
         if (sites) {
@@ -15,11 +14,13 @@ window.onload = function () {
 
                     if (link.innerText.indexOf(site.hostname) > -1) {
                         const element = link.closest('.g');
-                        highlightLink(element);
-                        const pagePlacement = this.getPlacement(index + 1);
-                        element.setAttribute('data-rank', pagePlacement);
-                        console.log('placement is :', pagePlacement);
-                        sitesWithRanksCount++;
+                        if (element != null) {
+                            highlightLink(element);
+                            const pagePlacement = getPlacement(index + 1);
+                            element.setAttribute('data-rank', pagePlacement.toString());
+                            console.log('placement is :', pagePlacement);
+                            sitesWithRanksCount++;
+                        }
                     }
                 }
             }
@@ -30,7 +31,7 @@ window.onload = function () {
     })
 }
 
-function highlightLink(element) {
+function highlightLink(element: Element) {
     chrome.storage.sync.get('highlighting-enabled', data => {
         if (data['highlighting-enabled'] === true || data['highlighting-enabled'] === undefined) {
             element.classList.add('serptrends-item');
@@ -38,9 +39,8 @@ function highlightLink(element) {
     })
 }
 
-function getPlacement(itemIndexInPage) {
+function getPlacement(itemIndexInPage: number) {
     const loc = new URLSearchParams(document.location.search);
-    let skip = parseInt(loc.get('start'));
-    skip = isNaN(skip) ? 0 : skip;
+    const skip = Number(loc.get('start')) ?? 0;
     return skip + itemIndexInPage;
 }

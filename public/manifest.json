@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Google rank checker",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "description": "With Google rank checker you don't need to go up and down to locate your site in google search results.",
     "permissions": [
         "tabs",
@@ -12,7 +12,7 @@
         "https://www.google.com/"
     ],
     "background": {
-        "service_worker": "bg-loader.js"
+        "service_worker": "background.js"
     },
     "content_scripts": [
         {
@@ -20,11 +20,10 @@
                 "https://*.google.com/*"
             ],
             "js": [
-                "storage.js",
                 "content.js"
             ],
             "css": [
-                "styles.css"
+                "content.css"
             ]
         }
     ],
@@ -43,5 +42,5 @@
         "48": "images/pagerank48.png",
         "128": "images/pagerank128.png"
     },
-    "options_page": "settings.html"
+    "options_page": "options.html"
 }

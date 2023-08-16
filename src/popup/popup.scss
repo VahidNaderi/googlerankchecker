@@ -1,0 +1,40 @@
+body {
+    min-width: 160px;
+    width: 320px;
+    min-height: 200px;
+    max-height: 450px;
+    margin: 0 1rem 1rem;
+}
+
+.site-url {
+    font-weight: 100;
+}
+
+.header {
+    padding: .5rem 1rem;
+    background: linear-gradient(90deg, #c14e48 40%, #e1645e) #c14e48;
+    color: #fff;
+    margin: 0 -1rem 1rem;
+}
+
+.header .logo {
+    font-size: 1em;
+}
+
+.header .logo .image {
+    height: 30px;
+}
+
+.actions {
+    padding-bottom: .5rem;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+}
+
+.actions .btn:last-child {
+    float: right;
+}
+
+.rank-list .rank-badge {
+    float: right;
+}
