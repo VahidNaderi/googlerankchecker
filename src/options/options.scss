@@ -1,0 +1,145 @@
+* {
+    color: blue;
+}
+
+.content {
+    padding: 0 1rem 1rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 30px auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+}
+
+.input-group {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin: 0 -1rem 1rem;
+    padding: 2rem 1rem;
+    background: linear-gradient(90deg, #c14e48 40%, #e1645e) #c14e48;
+    z-index: 1;
+}
+
+.input-group .logo {
+
+    position: absolute;
+    top: -20px;
+    left: -50px;
+    z-index: -1;
+}
+
+.site-list li:hover .btn-delete {
+    opacity: 1;
+}
+
+.site-list li>a {
+    color: #444;
+    text-decoration: none;
+
+}
+
+.site-url {
+    font-weight: 100;
+}
+
+.btn-delete {
+    opacity: 0;
+    padding: 0 5px;
+    color: #000;
+    font-family: arial;
+    font-weight: bold;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.btn-delete:hover {
+    color: #f33;
+}
+
+.footer {
+    width: 100%;
+    max-width: 400px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.footer h1 {
+    font-size: 1.5em;
+    margin-bottom: .5rem;
+
+}
+
+.footer .generator {
+    color: #777;
+
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 50rem;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+input:checked+.slider {
+    background-color: #c14e48;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #c14e48;
+}
+
+input:checked+.slider:before {
+    transform: translateX(22px);
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem;
+}
+
+.setting-row.toggle:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.setting-row .label-secondary {
+    color: #777;
+    display: block;
+}
