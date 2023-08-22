@@ -1,13 +1,14 @@
 import { CommonHelper } from "./common-helper";
-import { StorageHelper } from "./storage-helper";
+import { StorageService } from "../services/storage-service";
 
 export class SearchHelper {
     private static _searchCache: { [key: string]: any } = {};
 
     constructor() { }
 
-    public static refresh() {
-        StorageHelper.getSites().then((sites: any[]) => {
+    public static refresh(): void {
+        const storageService = new StorageService();
+        storageService.getSites().then((sites: any[]) => {
             if (sites && sites.length > 0) {
                 CommonHelper.isGooglePage().then(isGoogle => {
                     if (isGoogle) {
@@ -25,7 +26,7 @@ export class SearchHelper {
         })
     }
 
-    public static renewRanks(googleurl: URL) {
+    public static renewRanks(googleurl: URL): Promise<unknown> {
         return new Promise((resolve, reject) => {
             let keyword = this.getKeywordFromUrl(googleurl);
             // Throw an error if the keyword is null or undefined
@@ -46,7 +47,7 @@ export class SearchHelper {
         })
     }
 
-    public static parseGoogleResultAndUpdate(googleResultPage: string, keyword: string) {
+    public static parseGoogleResultAndUpdate(googleResultPage: string, keyword: string): void {
         let page = document.createElement('html');
         page.innerHTML = googleResultPage;
         let links = page.getElementsByTagName('cite');
@@ -57,16 +58,16 @@ export class SearchHelper {
         }
     }
 
-    public static getKeywordFromUrl(url: URL) {
+    public static getKeywordFromUrl(url: URL): string | null {
         if (!url.searchParams.has('q')) return null;
         let keyword = url.searchParams.get('q');
         return keyword;
     }
 
-    public static httpGetAsync2(theUrl: string | URL) {
-        return new Promise(function (resolve, reject) {
+    public static httpGetAsync2(theUrl: string | URL): Promise<unknown> {
+        return new Promise((resolve, reject) => {
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function () {
+            xmlHttp.onreadystatechange = () => {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                     resolve(xmlHttp.responseText);
                 }

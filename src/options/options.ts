@@ -1,8 +1,10 @@
 import "./options.scss";
-import { StorageHelper } from "../helpers/storage-helper";
-import { CommonHelper } from "../helpers/common-helper";
+import { StorageService } from "../shared/services/storage-service";
+import { CommonHelper } from "../shared/helpers/common-helper";
 
-chrome.storage.sync.get('mysites', function (data) {
+const storageService = new StorageService();
+
+chrome.storage.sync.get('mysites', (data) => {
     if (data.mysites && data.mysites.length > 0) {
 
         for (var i = 0; i < data.mysites.length; i++) {
@@ -18,33 +20,32 @@ chrome.storage.sync.get('highlighting-enabled', data => {
     $('#enable-highlighting').prop('checked', data['highlighting-enabled']);
 })
 
-$('#enable-highlighting').change(() => {
-    chrome.storage.sync.set({ 'highlighting-enabled': $('#enable-highlighting').prop('checked') });
-})
-
-$('#txtSite').keypress(function (event) {
-    if (event.which == 13) addSite();
-})
-
-$('#btnAddSite').click(addSite);
-
-function addSite() {
+const addSite = async (): Promise<void> => {
     var sitename = $('#txtSite').val();
     if (typeof sitename == 'string' && sitename && sitename.length > 0) {
-        var urlModel = CommonHelper.createUrlObject(sitename);
-        StorageHelper.addSite(sitename).then((res: any) => {
-            if (res) {
-                $('#mysites').append(CommonHelper.createSiteElement(urlModel, true));
-                $('#txtSite').val('');
-            }
-        })
+        const response = await storageService.addSite(sitename);
+        if (response) {
+            $('#mysites').append(CommonHelper.createSiteElement(response.item, true));
+            $('#txtSite').val('');
+        }
     }
 }
 
-$('#mysites').on('click', '.btn-delete', function () {
-    var hostname = $(this).data('hostname');
+$('#enable-highlighting').on('change', () => {
+    chrome.storage.sync.set({ 'highlighting-enabled': $('#enable-highlighting').prop('checked') });
+})
+
+$('#txtSite').on('keypress', async (event) => {
+    if (event.which == 13) await addSite();
+})
+
+$('#btnAddSite').on('click', addSite);
+
+$('#mysites').on('click', '.btn-delete', (event) => {
+    var $this = $(event.currentTarget);
+    var hostname = $this.data('hostname');
     if (confirm('Remove ' + hostname + ' from this list?')) {
-        StorageHelper.removeSite(hostname);
-        $(this).parents('li').remove();
+        storageService.removeSite(hostname);
+        $this.parents('li').remove();
     }
 })

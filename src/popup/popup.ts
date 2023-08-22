@@ -1,67 +1,67 @@
 import "./popup.scss";
-import { StorageHelper } from "../helpers/storage-helper"
-import { CommonHelper } from "../helpers/common-helper";
-import { SearchHelper } from "../helpers/search-helper";
+import { StorageService } from "../shared/services/storage-service"
+import { CommonHelper } from "../shared/helpers/common-helper";
+import { SearchHelper } from "../shared/helpers/search-helper";
+import { SiteStorageModel } from "../shared/models/site-storage";
 
 var _searchCache: { [key: string]: any } = {};
+const storageService = new StorageService();
 
-$('#addsite').click(() => {
-    console.log('addsite');
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+$('#addsite').on('click', () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
         if (tabs[0].url) {
-            StorageHelper.addSite(tabs[0].url).then((res: any) => {
-                if (res && res.added)
-                    $('#site-ranks').append(CommonHelper.createSiteElement(res.item));
-            });
+            
+            const response = await storageService.addSite(tabs[0].url);
+            if (response && response.added)
+                $('#site-ranks').append(CommonHelper.createSiteElement(response.item));
         }
     });
 })
 
-$('#refreshbtn').click(SearchHelper.refresh);
+$('#refreshbtn').on('click', SearchHelper.refresh);
 
-$('#btnOptions').click(() => {
+$('#btnOptions').on('click', () => {
     chrome.runtime.openOptionsPage();
 })
 
-sitesRefresh();
-
-function sitesRefresh() {
-    chrome.storage.sync.get('mysites', (data) => {
+const sitesRefresh = (): void => {
+    chrome.storage.sync.get('mysites', async (data) => {
         if (data.mysites && data.mysites.length > 0) {
-            CommonHelper.isGooglePage().then(val => {
-                if (val) {
-                    $('#addsite').hide();
+            const isGoolePage = await CommonHelper.isGooglePage();
+            if (isGoolePage) {
+                $('#addsite').hide();
 
-                    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                        ///////// CHECK /////////
-                        let googleurl = new URL(tabs[0].url!);
-                        let keyword = SearchHelper.getKeywordFromUrl(googleurl);
-                        if (keyword) {
-                            if (_searchCache[keyword] !== undefined)
-                                showSites(keyword, tabs[0].id!);
-                            else
-                                getRank(googleurl, function () {
-                                    showSites(keyword as string, tabs[0].id!);
-                                });
-                        }
-                    });
-                } else {
-                    $('#addsite').show();
-                    for (var i = 0; i < data.mysites.length; i++) {
-                        let sitename = data.mysites[i];
-
-                        $('#site-ranks').append(CommonHelper.createSiteElement(sitename));
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                    let googleurl = new URL(tabs[0].url!);
+                    let keyword = SearchHelper.getKeywordFromUrl(googleurl);
+                    if (keyword) {
+                        if (_searchCache[keyword] !== undefined)
+                            showSites(keyword, tabs[0].id!);
+                        else
+                            getRank(googleurl, () => {
+                                showSites(keyword as string, tabs[0].id!);
+                            });
                     }
+                });
+            } else {
+                $('#addsite').show();
+                for (var i = 0; i < data.mysites.length; i++) {
+                    let sitename = data.mysites[i];
+
+                    $('#site-ranks').append(CommonHelper.createSiteElement(sitename));
                 }
-            })
+            }
+
         }
     });
 }
 
-function showSites(query: string, tabId: number) {
+sitesRefresh();
+
+const showSites = (query: string, tabId: number): void => {
     if (query && query.length > 0) {
         if (_searchCache[query] != undefined) {
-            chrome.storage.sync.get('mysites', function (data) {
+            chrome.storage.sync.get('mysites', (data) => {
                 if (data.mysites && data.mysites.length > 0) {
                     let rankCounter = 0;
                     for (var i = 0; i < data.mysites.length; i++) {
@@ -85,7 +85,7 @@ function showSites(query: string, tabId: number) {
     }
 }
 
-function getRank(googleurl: URL, callback: any) {
+const getRank = (googleurl: URL, callback: any): void => {
     let keyword = SearchHelper.getKeywordFromUrl(googleurl);
     // Throw an error if the keyword is null or undefined
     if (!keyword) throw new Error('Keyword not found');
@@ -109,9 +109,9 @@ function getRank(googleurl: URL, callback: any) {
     }
 }
 
-function httpGetAsync(theUrl: string, callback: any) {
+const httpGetAsync = (theUrl: string, callback: any): void => {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
+    xmlHttp.onreadystatechange = () => {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             callback(xmlHttp.responseText);
     }
