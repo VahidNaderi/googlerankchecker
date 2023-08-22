@@ -1,10 +1,11 @@
-import { CommonHelper } from "./common-helper";
+import { AddSiteResponseModel } from "../models/add-site-response";
+import { SiteStorageModel } from "../models/site-storage";
+import { CommonHelper } from "../helpers/common-helper";
 
-export class StorageHelper {
+export class StorageService {
     constructor() { }
 
-    public static addSite(urlString: string) {
-        console.log('adding site!');
+    public addSite(urlString: string): Promise<AddSiteResponseModel> {
         return new Promise((resolve, reject) => {
             chrome.storage.sync.get('mysites', (data) => {
                 let url = CommonHelper.createUrlObject(urlString);
@@ -23,8 +24,8 @@ export class StorageHelper {
         })
     }
 
-    public static removeSite(name: string) {
-        chrome.storage.sync.get('mysites', function (data) {
+    public removeSite(name: string): void {
+        chrome.storage.sync.get('mysites', (data) => {
             //let domain = getDomainNameFromUrl(urlString);
             var foundUrl = data.mysites.find((u: URL) => u.hostname == name);
             if (foundUrl) {
@@ -36,9 +37,9 @@ export class StorageHelper {
         })
     }
 
-    public static getSites(): Promise<string[]> {
-        return new Promise(function (resolve, reject) {
-            chrome.storage.sync.get('mysites', data => resolve(data.mysites));
+    public getSites(): Promise<SiteStorageModel[]> {
+        return new Promise((resolve, reject) => {
+            chrome.storage.sync.get('mysites', data => resolve(data.mysites) );
         })
     }
 }
