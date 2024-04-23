@@ -1,8 +1,10 @@
 import { CommonHelper } from "./common-helper";
 import { StorageService } from "../services/storage-service";
+import { SerpHelper } from "./serp-helper";
 
 export class SearchHelper {
     private static _searchCache: { [key: string]: any } = {};
+    private static readonly serpHelper = new SerpHelper();
 
     constructor() { }
 
@@ -50,11 +52,11 @@ export class SearchHelper {
     public static parseGoogleResultAndUpdate(googleResultPage: string, keyword: string): void {
         let page = document.createElement('html');
         page.innerHTML = googleResultPage;
-        let links = page.getElementsByTagName('cite');
-        for (let i = 0; i < links.length; i++) {
-            let el = links[i];
-            let u = CommonHelper.getDomainNameFromUrl(el.innerText);
-            this._searchCache[keyword].push({ domain: u, rank: i + 1 });
+        let resultItems = this.serpHelper.getResultItems(page);
+        for (let i = 0; i < resultItems.length; i++) {
+            let url = this.serpHelper.getLinkFromResultItem(resultItems[i]);
+            let domain = CommonHelper.getDomainNameFromUrl(url);
+            this._searchCache[keyword].push({ domain, rank: i + 1 });
         }
     }
 
