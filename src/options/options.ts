@@ -20,6 +20,16 @@ chrome.storage.sync.get('highlighting-enabled', data => {
     $('#enable-highlighting').prop('checked', data['highlighting-enabled']);
 })
 
+$('#enable-highlighting').on('change', () => {
+    chrome.storage.sync.set({ 'highlighting-enabled': $('#enable-highlighting').prop('checked') });
+})
+chrome.storage.sync.get('counter-enabled', data => {
+    $('#enable-counter').prop('checked', data['counter-enabled']);
+})
+
+$('#enable-counter').on('change', () => {
+    chrome.storage.sync.set({ 'counter-enabled': $('#enable-counter').prop('checked') });
+})
 const addSite = async (): Promise<void> => {
     var sitename = $('#txtSite').val();
     if (typeof sitename == 'string' && sitename && sitename.length > 0) {
@@ -31,9 +41,6 @@ const addSite = async (): Promise<void> => {
     }
 }
 
-$('#enable-highlighting').on('change', () => {
-    chrome.storage.sync.set({ 'highlighting-enabled': $('#enable-highlighting').prop('checked') });
-})
 
 $('#txtSite').on('keypress', async (event) => {
     if (event.which == 13) await addSite();

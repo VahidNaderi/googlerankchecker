@@ -3,9 +3,11 @@ import { StorageService } from "../shared/services/storage-service"
 import { CommonHelper } from "../shared/helpers/common-helper";
 import { SearchHelper } from "../shared/helpers/search-helper";
 import { SiteStorageModel } from "../shared/models/site-storage";
+import { SerpHelper } from "../shared/helpers/serp-helper";
 
 var _searchCache: { [key: string]: any } = {};
 const storageService = new StorageService();
+const serpHelper = new SerpHelper();
 
 $('#addsite').on('click', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
@@ -93,13 +95,14 @@ const getRank = (googleurl: URL, callback: any): void => {
     if (_searchCache[keyword] === undefined) {
         _searchCache[keyword] = [];
         httpGetAsync(googleurl.href, (res: any) => {
-            var element = document.createElement('html');
+            let element = document.createElement('html');
             element.innerHTML = res;
-            var links = element.getElementsByTagName('cite');
-            for (var i = 0; i < links.length; i++) {
-                var el = links[i];
-                var u = CommonHelper.getDomainNameFromUrl(el.innerText);
-                _searchCache[keyword as string].push({ domain: u, rank: i + 1 });
+
+            let resultItems = serpHelper.getResultItems(element);
+            for (let i = 0; i < resultItems.length; i++) {
+                let url = serpHelper.getLinkFromResultItem(resultItems[i]);
+                let domain = CommonHelper.getDomainNameFromUrl(url);
+                _searchCache[keyword as string].push({ domain, rank: i + 1 });
             }
 
             if (callback) {
