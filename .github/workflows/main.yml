@@ -31,6 +31,6 @@ jobs:
           client-secret: ${{ secrets.CHROME_STORE_CLIENT_SECRET }}
           file-name: releases/googlerankchecker.zip
           app-id: ehgbmeaekkaeajmapeefcolejlaamdip
-          publish: false
+          publish: true
         uses: Passiverecords/chrome-extension-upload-action@1.4.1
 
