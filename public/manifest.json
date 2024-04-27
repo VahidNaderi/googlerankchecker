@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Google rank checker",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "description": "With Google rank checker you don't need to go up and down to locate your site in google search results.",
     "permissions": [
         "tabs",
