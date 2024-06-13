@@ -35,7 +35,8 @@ export class SearchHelper {
             if (!keyword) throw new Error('Keyword not found');
 
             googleurl.searchParams.set('num', '100');
-
+            googleurl.searchParams.set('start','0');
+            
             if (this._searchCache[keyword] == undefined) {
                 this._searchCache[keyword] = [];
                 fetch(googleurl.href).then(async res => {

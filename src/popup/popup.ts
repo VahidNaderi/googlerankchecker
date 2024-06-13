@@ -92,6 +92,10 @@ const getRank = (googleurl: URL, callback: any): void => {
     // Throw an error if the keyword is null or undefined
     if (!keyword) throw new Error('Keyword not found');
     googleurl.searchParams.set('num', '100');
+    // To avoid being affected by paging
+    // It says 100 results starting from page 0
+    googleurl.searchParams.set('start','0');
+
     if (_searchCache[keyword] === undefined) {
         _searchCache[keyword] = [];
         httpGetAsync(googleurl.href, (res: any) => {

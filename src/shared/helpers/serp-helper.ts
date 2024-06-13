@@ -5,7 +5,7 @@ export class SerpHelper {
 
     getResultItems(resultsContainer: any) {
         let resultItems = resultsContainer.querySelectorAll(this.Result_Item_Selector)
-        console.log("result count:", resultItems.length)
+
         return resultItems;
     }
     getLinkFromResultItem(resutlItem: any): string {

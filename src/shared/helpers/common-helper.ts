@@ -1,10 +1,12 @@
 import { SiteStorageModel } from "../models/site-storage";
 
+const googleSearchPageRegex = new RegExp("google\..*/search");
+
 export class CommonHelper {
     public static async isGooglePage(): Promise<boolean | null> {
         let url = await this.getCurrentUrl();
-        // Return true if url exists and contains 'google.com/search'
-        return url && url.href.toLowerCase().includes('google.com/search');
+        // Return true if url exists and contains google search pages like 'google.com/search' or 'google.co.uk/search'
+        return url && googleSearchPageRegex.test(url.href.toLowerCase());
     }
 
     public static async getCurrentTab(): Promise<chrome.tabs.Tab> {
