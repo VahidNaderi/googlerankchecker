@@ -8,8 +8,8 @@ GoogleRankChecker is a **Chrome extension** designed to help you quickly find an
 ## Key Features
 - **Instant Highlights**: Automatically highlights your predefined list of websites in Google search results.
 - **Customizable List**: Easily add or remove websites from your tracking list.
-/- **Visibility Control**: Choose to highlight with custom colors for better visibility.
-/- **Effortless Navigation**: Navigate through your highlighted results with a simple keyboard shortcut.
+- **Visibility Control**: Choose to highlight with custom colors for better visibility. (Planned)
+- **Effortless Navigation**: Navigate through your highlighted results with a simple keyboard shortcut.(Planned)
 - **Privacy-Focused**: Runs locally on your browser, ensuring your search preferences stay private.
 
 ## How Does It Work?
@@ -34,8 +34,25 @@ To activate this feature:
 4. Return to your search and see the results numbered sequentially.
 
 ## Change log
+### 0.8.1
+- Add support for other regional Google domains like .co.uk, .com.au, and more
+- Remove messy error and debug messages in console
 ### 0.8.0
 - Add Numbered Results feature
 - Fix result item detection
 - Init github pages website
 
+<div>
+<ul style="text-align:center">
+<li style="display:inline-block">
+
+[Source Code](https://github.com/vahidNaderi/googlerankchecker/)
+
+</li>
+•
+<li style="display:inline-block">
+
+[Privacy Policy](privacy.md)
+</li>
+</ul>
+</div>
