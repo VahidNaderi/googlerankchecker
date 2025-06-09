@@ -1,8 +1,10 @@
 import "./options.scss";
 import { StorageService } from "../shared/services/storage-service";
+import {RankStorageService} from "../shared/services/rank-storage-service"
 import { CommonHelper } from "../shared/helpers/common-helper";
 
 const storageService = new StorageService();
+const rankStorageService=new RankStorageService();
 
 chrome.storage.sync.get('mysites', (data) => {
     if (data.mysites && data.mysites.length > 0) {
@@ -53,6 +55,7 @@ $('#mysites').on('click', '.btn-delete', (event) => {
     var hostname = $this.data('hostname');
     if (confirm('Remove ' + hostname + ' from this list?')) {
         storageService.removeSite(hostname);
+        rankStorageService.removeRanks(hostname);
         $this.parents('li').remove();
     }
 })

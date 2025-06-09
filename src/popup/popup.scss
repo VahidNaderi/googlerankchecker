@@ -1,4 +1,6 @@
 body {
+    display: flex;
+    flex-direction: column;
     min-width: 160px;
     width: 320px;
     min-height: 200px;
@@ -35,6 +37,35 @@ body {
     float: right;
 }
 
-.rank-list .rank-badge {
-    float: right;
+// .rank-list .rank-badge {
+//     float: right;
+// }
+
+.pointer {
+    transition: transform 0.3s ease-in-out;
+}
+
+.pointer:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+.rank-container{
+    display: flex;
+    text-align: center;
+    justify-content: flex-start;
+    margin-left: auto;
+    width: 100px;
+}
+.rank-badge.empty{
+    background: transparent;
+    visibility: hidden;
+}
+.div-left{
+    margin-right: auto;
+}
+.div-right{
+    margin-left: auto;
+}
+#chart-btn{
+    font-size: 10px;
 }

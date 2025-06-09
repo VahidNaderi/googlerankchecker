@@ -42,5 +42,8 @@
   "bugs": {
     "url": "https://github.com/VahidNaderi/googlerankchecker/issues"
   },
-  "homepage": "https://github.com/VahidNaderi/googlerankchecker#readme"
+  "homepage": "https://github.com/VahidNaderi/googlerankchecker#readme",
+  "dependencies": {
+    "chart.js": "^4.4.9"
+  }
 }

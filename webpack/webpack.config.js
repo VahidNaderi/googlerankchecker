@@ -12,7 +12,9 @@ module.exports = (env) => {
 			background: path.resolve(__dirname, "..", "src", "background.ts"),
 			content: path.resolve(__dirname, "..", "src", "content", "content.ts"),
 			popup: path.resolve(__dirname, "..", "src", "popup", "popup.ts"),
-			options: path.resolve(__dirname, "..", "src", "options", "options.ts")
+			options: path.resolve(__dirname, "..", "src", "options", "options.ts"),
+			chart: path.resolve(__dirname, "..", "src", "charts", "chart.ts")
+
 		},
 		output: {
 			path: path.join(__dirname, "../dist"),
@@ -87,6 +89,11 @@ module.exports = (env) => {
 				filename: "[name].css",
 				chunkFilename: "[id].css",
 			}),
+			new HtmlWebpackPlugin({
+				filename: 'chart.html',                       
+				template: 'src/charts/chart.html',             
+				chunks: ['chart']                               
+			  }),
 		],
 	};
 }

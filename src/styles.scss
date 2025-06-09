@@ -76,6 +76,8 @@ hr {
 }
 
 .url-list li {
+    display: flex;
+    align-items: center;
     margin-bottom: 5px;
     font-size: 1.2em;
 }

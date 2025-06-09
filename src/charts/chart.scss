@@ -1,0 +1,101 @@
+* {
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #eee;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #c34d49;
+}
+
+.nav .logo img {
+    margin-left: 10px;
+    height: 40px;
+    width: 40px;
+}
+
+
+.chartContainer {
+    padding: 0px 5px;
+    height: calc(100vh - 130px);
+    position: relative;
+}
+
+canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.filters {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    gap: 15px;
+}
+
+.filters select {
+    box-sizing: border-box;
+    margin: 3px;
+    color: #ffffff;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(255, 255, 255, 0.05) 100%);
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+    backdrop-filter: blur(2px);
+}
+
+.filters select:hover {
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+}
+
+.filters select:focus {
+    outline: none;
+    border: none;
+}
+
+.filters select option {
+    background-color: #cb64601a;
+    text-align: center;
+    direction: rtl;
+    color: #444;
+}
+
+.filters select option:hover {
+    background-color: #ce0d06f7 !important;
+}
+
+footer hr {
+    width: 80%;
+}
+
+footer {
+    padding: 15px;
+    text-align: center;
+    color: #444;
+    margin-top: auto;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
